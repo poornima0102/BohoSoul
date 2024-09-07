@@ -3,33 +3,29 @@ import { json, useNavigate,useLocation } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Layout from '../../components/Layout/Layout';
-import { useAuth } from '../../context/auth';
 
-const Login = () => {
+const ForgotPassword = () => {
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const[auth,setAuth]=useAuth();
+    const [newPassword, setNewPassword] = useState("");
+    const [answer, setAnswer] = useState("");
+
     const navigate = useNavigate();
-    const loacation=useLocation()
+    
 
     // form submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post(
-                `${process.env.REACT_APP_API}/api/v1/auth/login`,
-                { email, password }
+                `${process.env.REACT_APP_API}/api/v1/auth/forgot-password`,
+                { email, newPassword ,answer}
             );
 
             if (res && res.data.success) {
                 toast.success(res.data.message);
-                setAuth({
-                    ...auth,
-                    user:res.data.user,
-                    token:res.data.token,
-                })
-                localStorage.setItem("auth",JSON.stringify(res.data))
-                navigate(loacation.state || '/');
+               
+              
+                navigate('/login');
             } else {
                 toast.error(res.data.message);
             }
@@ -38,12 +34,11 @@ const Login = () => {
             toast.error("Something went wrong");
         }
     };
-
-    return (
-        <Layout title="Login">
+  return (
+    <Layout title="Login">
             <div className="auth-container-single">
-                <h2 className="auth-form-title">Welcome Back!</h2>
-                <p className="auth-form-subtitle">Please login with your personal info</p>
+                <h1 className="auth-form-title">RESET PASSWORD</h1>
+                {/* <p className="auth-form-subtitle">Reset Password</p> */}
                 <form onSubmit={handleSubmit} className="auth-form">
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
@@ -57,31 +52,37 @@ const Login = () => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                        <label htmlFor="exampleInputEmail1" className="form-label">Enter your pet name</label>
+                        <input
+                            type="text"
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            required
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleInputPassword1" className="form-label">Enter your new password</label>
                         <input
                             type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
                             className="form-control"
                             id="exampleInputPassword1"
                             required
                         />
                     </div>
-                    <button type="button" className="btn btn-primary auth-btn" onClick={()=>{navigate('/forgot-password')}}>
-                        Forgot Password?
-                    </button>
+                   
                     <button type="submit" className="btn btn-primary auth-btn">
-                        Sign In
+                        RESET
                     </button>
                 </form>
-                <p className="auth-footer-text">
-                    Don't have an account? <span className="auth-link" onClick={() => navigate('/register')}>Sign Up</span>
-                </p>
+               
             </div>
         </Layout>
     );
 };
+  
 
-export default Login;
-
-
+export default ForgotPassword
