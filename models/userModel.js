@@ -34,3 +34,7 @@ const userSchema = new mongoose.Schema({
 },{timestamps:true})
 
 export default mongoose.model('users',userSchema);
+
+
+// Overall, this schema defines a users collection with fields for user information and validation rules. 
+// The timestamps option helps keep track of when records are created and updated.

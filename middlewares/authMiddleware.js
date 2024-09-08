@@ -45,6 +45,7 @@ import userModel from '../models/userModel.js';
 // Protected routes token based
 export const requireSignIn = async (req, res, next) => {
   try {
+    //Retrieves the token from the Authorization header.
     const token = req.headers.authorization;
 
     if (!token) {
@@ -56,7 +57,7 @@ export const requireSignIn = async (req, res, next) => {
 
     const decode = JWT.verify(token, process.env.JWT_SECRET);
     req.user = decode;
-    next();
+    next(); //Calls the next middleware or route handler if the token is valid.
   } catch (error) {
     console.log("Token verification error:", error);
     return res.status(401).send({

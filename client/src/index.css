@@ -286,3 +286,22 @@ button[type="submit"]:hover {
 }
 /* background-color: #d1c4e9; /* Pastel purple button */
   /* color: #2c2c2c; Black text on button  */
+
+  /*--------- admin menu css------------ */
+  .darker-gray-bg {
+    background-color: #a9a9a9; 
+    border: 1px solid #808080; 
+  }
+  
+  .darker-gray-bg:hover, 
+  .darker-gray-bg:focus, 
+  .darker-gray-bg:active {
+    background-color: #8c8c8c; 
+    border-color: #6e6e6e;
+    outline: none;
+    box-shadow: none;
+  }
+  .darker-gray-bg.active {
+    background-color: #9373cf !important; 
+    border-color: #b4a5cf; 
+  }

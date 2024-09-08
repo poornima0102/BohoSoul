@@ -28,7 +28,7 @@ router.get("/user-auth",requireSignIn,(req,res)=>{
 
 //protected admin route auth
 router.get("/admin-auth",requireSignIn,isAdmin,(req,res)=>{
-    console.log("User auth route hit")
+    console.log("Admin auth route hit")
     res.status(200).send({ok:true});
 })
 export default router;
